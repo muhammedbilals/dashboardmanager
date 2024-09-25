@@ -17,6 +17,7 @@ namespace api.data
         {
             
         }
+        public DbSet<Property> Properties{get; set;}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
