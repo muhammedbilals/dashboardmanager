@@ -32,7 +32,8 @@ namespace api.controllers
 
                 var user = new User{
                     Email = registerDto.Email,
-                    UserName = registerDto.Email
+                    UserName = registerDto.Email,
+                    PhoneNumber = registerDto.MobileNumber
                 };
 
                 var registerdUser =await _userManager.CreateAsync(user , registerDto.Password);
