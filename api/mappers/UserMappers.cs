@@ -13,8 +13,8 @@ namespace api.mappers
         {
             return new UserDto{
                     Id = user.Id,
-                 Email =user.Email,
-                 Name =user.UserName
+                 Email = user.Email,
+                 Name = user.UserName
             };
         }
 

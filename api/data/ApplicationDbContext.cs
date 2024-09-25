@@ -18,27 +18,9 @@ namespace api.data
             
         }
 
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-        //    builder.Entity<User>()
-        //     .HasMany(u => u.College)
-        //     .WithMany(c => c.Users)
-        //     .UsingEntity(j => j.ToTable("UserColleges"));
-
-            // builder.Entity<College>()
-            // .HasMany(u =>u.Semesters)
-            // .WithMany(c =>c.Colleges)
-            // .UsingEntity(j =>j.ToTable("CollageSemesterSubject"));
-
-            // builder.Entity<College>()
-            // .HasMany(u =>u.Subjects)
-            // .WithMany(c =>c.Colleges)
-            // .UsingEntity(j =>j.ToTable("CollageSemesterSubject"));
-
-
 
             List<IdentityRole> roles = new List<IdentityRole>{
                 new IdentityRole{
