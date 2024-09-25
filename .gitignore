@@ -1,4 +1,4 @@
 api/bin/
 api/obj/
 api/wwwroot/
-api/appsettings.*.json
+api/appsettings.json
