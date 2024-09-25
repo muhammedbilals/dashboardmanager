@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.data;
+using api.dtos.property;
 using api.interfaces;
+using api.mappers;
 using api.models;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.repositories
 {
@@ -16,29 +19,52 @@ namespace api.repositories
             _context = context;
         }
 
-        public Task<Property> CreateProperty(Property property)
+        public async Task<Property> CreateProperty(PropertyDto property)
         {
-            throw new NotImplementedException();
+            await _context.Properties.AddAsync(property.ToProperty());
+            await _context.SaveChangesAsync();
+            return property.ToProperty();
         }
 
-        public Task<Property> DeleteProperty(int id)
+        public async Task<Property?> DeleteProperty(int id)
         {
-            throw new NotImplementedException();
+            var property = await GetPropertyById(id);
+
+            if(property ==  null) return null;
+
+            _context.Properties.Remove(property);
+            await _context.SaveChangesAsync();
+
+            return property;
         }
 
         public Task<List<Property>> GetProperties()
         {
-            throw new NotImplementedException();
+            return _context.Properties.ToListAsync();
         }
 
-        public Task<Property> GetPropertyById(int id)
+        public async Task<Property?> GetPropertyById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Properties.FirstOrDefaultAsync(s => s.Id == id );
         }
 
-        public Task<Property> UpdateProperty(int id, Property property)
+        public async Task<Property?> UpdateProperty(int id, PropertyDto property)
         {
-            throw new NotImplementedException();
+            var result = await GetPropertyById(id);
+
+            if(result == null) return null;
+
+            result.PropertyName = property.PropertyName;
+            result.PropertyType = property.PropertyType;
+            result.Location = property.Location;
+            result.Price = property.Price;
+            result.SizeSqFt = property.SizeSqFt;
+            result.NoOfBathrooms = property.NoOfBathrooms;
+            result.NoOfBedrooms = property.NoOfBedrooms;
+
+            await _context.SaveChangesAsync();
+
+            return result;
         }
     }
 }

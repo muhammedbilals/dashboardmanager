@@ -1,15 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.models
+namespace api.dtos.property
 {
-    public class Property
+    public class PropertyDto
     {
-        [Key]
-        public int Id {set; get;}
         public string PropertyName { get; set; } = string.Empty;
         public string PropertyType { get; set; } = string.Empty;
         public string Location { get; set; } = string.Empty;
@@ -17,6 +14,5 @@ namespace api.models
         public int Price { get; set; }
         public int NoOfBedrooms { get; set; }   
         public int NoOfBathrooms { get; set; }
-
     }
 }

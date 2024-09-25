@@ -90,6 +90,11 @@ builder.Services.AddAuthentication(options => {
 
 builder.Services.AddScoped<IUserRepository,UserRepository>();
 builder.Services.AddScoped<ITokenServices, TokenService>();
+builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();  
+builder.Logging.AddDebug();  
 
 
 builder.Services.AddCors(options =>
