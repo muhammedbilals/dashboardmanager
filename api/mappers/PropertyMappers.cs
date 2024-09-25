@@ -22,6 +22,7 @@ namespace api.mappers
         }
         public static Property ToProperty(this PropertyDto property){
             return new Property{
+                
                 PropertyName = property.PropertyName,
                 PropertyType = property.PropertyName,
                 Location = property.PropertyName,

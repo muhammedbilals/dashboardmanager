@@ -21,9 +21,10 @@ namespace api.repositories
 
         public async Task<Property> CreateProperty(PropertyDto property)
         {
-            await _context.Properties.AddAsync(property.ToProperty());
+            var result = property.ToProperty();
+            await _context.Properties.AddAsync(result);
             await _context.SaveChangesAsync();
-            return property.ToProperty();
+            return result;
         }
 
         public async Task<Property?> DeleteProperty(int id)
