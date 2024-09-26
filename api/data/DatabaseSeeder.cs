@@ -62,6 +62,5 @@ namespace api.Data
 
             Console.WriteLine("Finished seeding admin user.");
         }
-
     }
 }

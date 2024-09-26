@@ -36,7 +36,7 @@ namespace api.controllers
                     PhoneNumber = registerDto.MobileNumber
                 };
 
-                var registerdUser =await _userManager.CreateAsync(user , registerDto.Password);
+                var registerdUser =await _userManager.CreateAsync(user , registerDto.Password!);
                 if(registerdUser.Succeeded){
                     var roleResult = await _userManager.AddToRoleAsync(user, "USER");
                     if(roleResult.Succeeded){

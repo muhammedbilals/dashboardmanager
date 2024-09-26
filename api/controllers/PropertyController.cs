@@ -86,7 +86,7 @@ namespace api.controllers
             return Ok(property);
         }
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> DeletePropertiesAsync([FromRoute] int id)
         {
 
