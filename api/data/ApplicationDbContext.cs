@@ -36,4 +36,4 @@ namespace api.data
             builder.Entity<IdentityRole>().HasData(roles);
         }
     }
-} 
+}

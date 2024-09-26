@@ -1,4 +1,5 @@
 using api.data;
+using api.Data;
 using api.interfaces;
 using api.Migrations;
 using api.models;
@@ -9,6 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -91,10 +94,13 @@ builder.Services.AddAuthentication(options => {
 builder.Services.AddScoped<IUserRepository,UserRepository>();
 builder.Services.AddScoped<ITokenServices, TokenService>();
 builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
+builder.Services.AddScoped<DatabaseSeeder>();
 
 builder.Logging.ClearProviders();
-builder.Logging.AddConsole();  
+builder.Logging.AddConsole();
 builder.Logging.AddDebug();  
+
+
 
 
 builder.Services.AddCors(options =>
@@ -117,6 +123,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
+
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseCors("AllowLocalhost3000");
@@ -125,5 +134,11 @@ app.MapControllers();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+using (var scope = app.Services.CreateScope())
+{
+    var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
+    await seeder.SeedAdminUserAsync();
+}
 
 app.Run();

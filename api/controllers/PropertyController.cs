@@ -6,6 +6,7 @@ using api.dtos.property;
 using api.interfaces;
 using api.mappers;
 using api.models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.controllers
@@ -45,6 +46,7 @@ namespace api.controllers
             return Ok(property);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreatePropertiesAsync([FromBody()] PropertyDto propertyDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -67,6 +69,7 @@ namespace api.controllers
             }
         }
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdatePropertiesAsync([FromRoute] int id, [FromBody()] PropertyDto propertyDto)
         {
 
@@ -83,6 +86,7 @@ namespace api.controllers
             return Ok(property);
         }
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeletePropertiesAsync([FromRoute] int id)
         {
 
