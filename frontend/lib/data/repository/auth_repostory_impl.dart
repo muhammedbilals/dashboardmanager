@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:dashboard/core/error/failures.dart';
-import 'package:dashboard/core/platform/network_info.dart';
 import 'package:dashboard/data/datasource/auth_remote_datasource.dart';
 import 'package:dashboard/domain/entity/request/login_request.dart';
 import 'package:dashboard/domain/entity/request/registration_request.dart';
@@ -13,15 +12,15 @@ import 'package:either_dart/either.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthApiRemoteDataSource remoteDataSource;
-  final NetworkInfo networkInfo;
+  
 
   AuthRepositoryImpl(
-      {required this.remoteDataSource, required this.networkInfo});
+      {required this.remoteDataSource});
 
   @override
   Future<Either<Failure, Login>> login(
       {required LoginRequest logInRequest}) async {
-    if (await networkInfo.isConnected == true) {
+  
       try {
         final authEnity =
             await remoteDataSource.loginWithApi(logInRequest: logInRequest);
@@ -34,15 +33,13 @@ class AuthRepositoryImpl implements AuthRepository {
           return const Left(ServerFailure(errorMessage: 'Login Failed'));
         }
       }
-    } else {
-      return Left(ConnectionFailure());
-    }
+   
   }
 
   @override
   Future<Either<Failure, UserRegistration>> registration(
       {required RegistraionRequest signUpRequest}) async {
-    if (await networkInfo.isConnected == true) {
+ 
       try {
         final authEnity =
             await remoteDataSource.signUpWithApi(signUpRequest: signUpRequest);
@@ -57,8 +54,6 @@ class AuthRepositoryImpl implements AuthRepository {
               ServerFailure(errorMessage: 'SignUp Failed'));
         }
       }
-    } else {
-      return Left(ConnectionFailure());
-    }
+    
   }
 }

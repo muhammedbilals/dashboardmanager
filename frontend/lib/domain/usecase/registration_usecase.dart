@@ -5,10 +5,10 @@ import 'package:dashboard/domain/repository/auth_repository.dart';
 import 'package:either_dart/either.dart';
 
 
-class LoginUseCase {
+class RegistrationUsecase {
   final AuthRepository authRepository;
 
-  LoginUseCase({required this.authRepository});
+  RegistrationUsecase({required this.authRepository});
 
   Future<Either<Failure, UserRegistration>> execute({required RegistraionRequest loginRequest}) async{
   return await  authRepository.registration(signUpRequest: loginRequest);
