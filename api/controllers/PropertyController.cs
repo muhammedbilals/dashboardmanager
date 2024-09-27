@@ -46,7 +46,7 @@ namespace api.controllers
             return Ok(property);
         }
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreatePropertiesAsync([FromBody()] PropertyDto propertyDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);

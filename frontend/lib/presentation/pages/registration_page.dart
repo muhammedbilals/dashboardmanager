@@ -6,6 +6,7 @@ import 'package:dashboard/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'package:dashboard/presentation/cubit/auth_cubit/auth_state.dart';
 import 'package:dashboard/presentation/cubit/button_cubit/button_cubit.dart';
 import 'package:dashboard/presentation/cubit/button_cubit/button_state.dart';
+import 'package:dashboard/presentation/pages/admin_home_page.dart';
 import 'package:dashboard/presentation/pages/user_home_page.dart';
 import 'package:dashboard/presentation/pages/login_page.dart';
 import 'package:dashboard/shared/validation/textfield_validation.dart';
@@ -222,13 +223,25 @@ class RegistrationPageState extends State<RegistrationPage> {
                         buttonStatus = ButtonStatus.idle;
                       }
                       if (state is AuthSuccess) {
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const HomePage(),
-                            ));});
+                        WidgetsBinding.instance.addPostFrameCallback(
+                          (_) {
+                            if (state.userRole == "User") {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const UserHomePage(),
+                                ),
+                              );
+                            }else if(state.userRole== "Admin"){
+                                 Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const AdminHomePage(),
+                                ),
+                              );
+                            }
+                          },
+                        );
                       }
                       return ButtonWidget(
                         width: 100.w,

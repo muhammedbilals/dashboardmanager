@@ -25,7 +25,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
     result.fold(
       (failure) => emit(AuthFailure("Login Failed")),
-      (login) => emit(AuthSuccess('Login successful!')),
+      (login) => emit(AuthSuccess('Login successful!',login.userRole)),
     );
   }
 
@@ -39,7 +39,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
     result.fold(
       (failure) => emit(AuthFailure("Registration Failed")),
-      (user) => emit(AuthSuccess('Registration successful!')),
+      (user) => emit(AuthSuccess('Registration successful!',user.userRole!)),
     );
   }
 }

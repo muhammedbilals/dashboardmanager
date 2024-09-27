@@ -3,14 +3,14 @@ import 'package:dashboard/presentation/cubit/property_cubit/property_state.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class UserHomePage extends StatefulWidget {
+  const UserHomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<UserHomePage> createState() => _UserHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _UserHomePageState extends State<UserHomePage> {
   @override
   void initState() {
     BlocProvider.of<PropertyCubit>(context).fetchProperties();
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
         builder: (context, state) {
           if (state is PropertyLoading) {
             // Show a loading spinner while properties are being fetched
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (state is PropertyFailure) {
             // Show an error message if there was a failure
             return Center(child: Text(state.errorMessage));
@@ -47,17 +47,35 @@ class _HomePageState extends State<HomePage> {
                   margin:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                   child: ListTile(
-                    title: Text(property.propertyName ?? 'Unnamed Property'),
-                    subtitle: Text(
-                        '${property.location ?? 'Unknown Location'} - ${property.sizeSqFt ?? 0} SqFt'),
-                    trailing: Text('\$${property.price ?? 0}'),
+                    title: Text(
+                      property.propertyName,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Location: ${property.location}'),
+                        Text('Size: ${property.sizeSqFt} SqFt'),
+                        Text('Type: ${property.propertyType}'),
+                        Text('Bedrooms: ${property.noOfBedrooms}'),
+                        Text('Bathrooms: ${property.noOfBathrooms}'),
+                      ],
+                    ),
+                    trailing: Text(
+                      '\AED ${property.price}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                 );
               },
             );
           } else {
             // Handle any other state, e.g., initial state where there are no properties loaded yet
-            return Center(child: Text('No properties found'));
+            return const Center(child: Text('No properties found'));
           }
         },
       ),

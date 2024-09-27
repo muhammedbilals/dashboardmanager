@@ -24,16 +24,26 @@ class _SplashPageState extends State<SplashPage> {
 
     // Check if JWT token is stored in SharedPreferences
     String? jwtToken = localDb.getString('jwtKey');
+    String? userRole = localDb.getString('userRole');
 
     // Navigate to appropriate screen based on the availability of JWT token
     if (jwtToken != null && jwtToken.isNotEmpty) {
       // Navigate to HomePage if JWT exists
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomePage(),
-        ),
-      );
+      if (userRole == "User") {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const UserHomePage(),
+          ),
+        );
+      }else if(userRole == "Admin"){
+           Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const UserHomePage(),
+          ),
+        );
+      }
     } else {
       // Navigate to LoginPage if JWT does not exist
       Navigator.pushReplacement(
@@ -52,7 +62,6 @@ class _SplashPageState extends State<SplashPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          
             Icon(
               Icons.flash_on,
               size: 100,
