@@ -1,4 +1,3 @@
-import 'package:dashboard/core/constant/constant.dart';
 import 'package:dashboard/domain/entity/request/property_request.dart';
 import 'package:dashboard/domain/entity/response/property_entity.dart';
 import 'package:dashboard/presentation/cubit/button_cubit/button_cubit.dart';
@@ -7,8 +6,8 @@ import 'package:dashboard/presentation/cubit/property_cubit/property_cubit.dart'
 
 import 'package:dashboard/presentation/cubit/update_property_cubit/update_property_cubit.dart';
 import 'package:dashboard/presentation/cubit/update_property_cubit/update_property_state.dart';
-import 'package:dashboard/shared/widgets/button_widget.dart';
-import 'package:dashboard/shared/widgets/text_field_widget.dart';
+import 'package:dashboard/presentation/widgets/button_widget.dart';
+import 'package:dashboard/presentation/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

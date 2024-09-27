@@ -1,6 +1,4 @@
 import 'package:dashboard/main.dart';
-
-
 import 'package:dashboard/presentation/cubit/property_cubit/property_cubit.dart';
 import 'package:dashboard/presentation/cubit/property_cubit/property_state.dart';
 import 'package:dashboard/presentation/pages/login_page.dart';
