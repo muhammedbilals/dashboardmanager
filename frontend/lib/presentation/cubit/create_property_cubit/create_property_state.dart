@@ -6,27 +6,27 @@ abstract class PropertyState extends Equatable {
   List<Object?> get props => [];
 }
 
-class PropertyInitial extends PropertyState {}
+// class PropertyInitial extends PropertyState {}
 
-class PropertyLoading extends PropertyState {}
+// class PropertyLoading extends PropertyState {}
 
-class PropertySuccess extends PropertyState {
-  final List<Property> properties;
+// class PropertySuccess extends PropertyState {
+//   final List<Property> properties;
 
-  PropertySuccess(this.properties);
+//   PropertySuccess(this.properties);
 
-  @override
-  List<Object?> get props => [properties];
-}
+//   @override
+//   List<Object?> get props => [properties];
+// }
 
-class PropertyFailure extends PropertyState {
-  final String errorMessage;
+// class PropertyFailure extends PropertyState {
+//   final String errorMessage;
 
-  PropertyFailure(this.errorMessage);
+//   PropertyFailure(this.errorMessage);
 
-  @override
-  List<Object?> get props => [errorMessage];
-}
+//   @override
+//   List<Object?> get props => [errorMessage];
+// }
 
 
 

@@ -22,18 +22,18 @@ class PropertyModel extends Property {
         );
 
   // Factory method to create a PropertyModel from JSON
-  factory PropertyModel.fromJson(Map<String, dynamic> json) {
-    return PropertyModel(
-      id: json['id'],
-      propertyName: json['propertyName'],
-      propertyType: json['propertyType'],
-      location: json['location'],
-      sizeSqFt: json['sizeSqFt'],
-      price: json['price'],
-      noOfBedrooms: json['noOfBedrooms'],
-      noOfBathrooms: json['noOfBathrooms'],
-    );
-  }
+factory PropertyModel.fromJson(Map<String, dynamic> json) {
+  return PropertyModel(
+    id: json['id'] ?? 0,  // Default to 0 if null
+    propertyName: json['propertyName'] ?? 'Unknown',  // Default to 'Unknown'
+    propertyType: json['propertyType'] ?? 'Unknown',
+    location: json['location'] ?? 'Unknown',
+    sizeSqFt: json['sizeSqFt'] ?? 0,
+    price: json['price'] ?? 0,
+    noOfBedrooms: json['noOfBedrooms'] ?? 0,
+    noOfBathrooms: json['noOfBathrooms'] ?? 0,
+  );
+}
 
   // Method to convert PropertyModel to JSON
   Map<String, dynamic> toJson() {

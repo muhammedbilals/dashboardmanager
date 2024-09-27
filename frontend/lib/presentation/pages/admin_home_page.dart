@@ -1,9 +1,13 @@
 import 'package:dashboard/main.dart';
+import 'package:dashboard/presentation/cubit/create_property_cubit/create_property_cubit.dart';
 import 'package:dashboard/presentation/cubit/property_cubit/property_cubit.dart';
 import 'package:dashboard/presentation/cubit/property_cubit/property_state.dart';
 import 'package:dashboard/presentation/pages/login_page.dart';
+import 'package:dashboard/presentation/widgets/add_property_bottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
+
 
 class AdminHomePage extends StatefulWidget {
   const AdminHomePage({super.key});
@@ -137,8 +141,10 @@ class AdminHomePageState extends State<AdminHomePage> {
                                             TextButton(
                                               child: const Text('Delete'),
                                               onPressed: () {
-                                         
-                                                BlocProvider.of<PropertyCubit>(context).deleteProperty(property.id);
+                                                BlocProvider.of<PropertyCubit>(
+                                                        context)
+                                                    .deleteProperty(
+                                                        property.id);
                                                 Navigator.of(context).pop();
                                               },
                                             ),
@@ -163,6 +169,26 @@ class AdminHomePageState extends State<AdminHomePage> {
             // Handle any other state, e.g., initial state where there are no properties loaded yet
             return const Center(child: Text('No properties found'));
           }
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add_box_rounded),
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return SingleChildScrollView(
+                child: Container(
+                  height: 80.h,
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom,
+                  ),
+                  child: AddPropertyBottomSheet(),
+                ),
+              );
+            },
+          );
         },
       ),
     );

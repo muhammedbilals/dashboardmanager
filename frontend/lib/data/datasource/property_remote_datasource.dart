@@ -58,10 +58,10 @@ class PropertyApiRemoteDataSourceImpl implements PropertyApiRemoteDataSource {
     final response = await httpClient.post(url, headers: headers, body: jsonEncode(propertyRequest.toJson()));
     final decodedBody = json.decode(response.body);
 
-    if (response.statusCode == 201) { 
+    if (response.statusCode == 201 || response.statusCode == 200) { 
       return PropertyModel.fromJson(decodedBody);
     } else {
-      log(decodedBody['message']);
+      
       throw ServerFailure(errorMessage: decodedBody['message']);
     }
   }
@@ -88,13 +88,13 @@ class PropertyApiRemoteDataSourceImpl implements PropertyApiRemoteDataSource {
   Future<bool> deleteProperty({required int id}) async {
     final url = Uri.parse('$baseUrl/property/$id');
     final response = await httpClient.delete(url);
-    final decodedBody = json.decode(response.body);
+
 
     if (response.statusCode == 200 || response.statusCode == 204) {
       return true;
     } else {
-      log(decodedBody['message']);
-      throw ServerFailure(errorMessage: decodedBody['message']);
+     
+      throw ServerFailure(errorMessage: "Delete failed");
     }
   }
 }

@@ -8,6 +8,7 @@ import 'package:dashboard/domain/usecase/get_all_property_usecase.dart';
 import 'package:dashboard/domain/usecase/login_usecase.dart';
 import 'package:dashboard/domain/usecase/registration_usecase.dart';
 import 'package:dashboard/presentation/cubit/auth_cubit/auth_cubit.dart';
+import 'package:dashboard/presentation/cubit/create_property_cubit/create_property_cubit.dart';
 import 'package:dashboard/presentation/cubit/property_cubit/property_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -39,6 +40,9 @@ Future<void> init() async {
   //property section
   sl.registerFactory(
     () => PropertyCubit(propertyRepository: sl()),
+  );
+  sl.registerFactory(
+    () => CreatePropertyCubit(propertyRepository: sl()),
   );
   sl.registerLazySingleton(
       () => GetPropertiesUseCase(propertyRepository: sl()));

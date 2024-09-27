@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:dashboard/core/error/failures.dart';
 import 'package:dashboard/data/datasource/property_remote_datasource.dart';
 import 'package:dashboard/domain/entity/request/property_request.dart';
@@ -55,6 +54,7 @@ class PropertyRepositoryImpl implements PropertyRepository {
 
       try {
         final result = await remoteDataSource.createProperty(propertyRequest: property);
+        
         return Right(result);
       } catch (e) {
         log(e.toString());
@@ -64,7 +64,6 @@ class PropertyRepositoryImpl implements PropertyRepository {
           return const Left(ServerFailure(errorMessage: 'Failed to create property'));
         }
       }
-  
   }
 
   @override
