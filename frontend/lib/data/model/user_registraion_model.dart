@@ -16,7 +16,7 @@ class UserRegistrationModel extends UserRegistration {
           userRole: userRole
         );
 
-  // Factory constructor to create a UserRegistrationModel instance from JSON
+
   factory UserRegistrationModel.fromJson(Map<String, dynamic> json) {
     return UserRegistrationModel(
       email: json['email'] as String?,

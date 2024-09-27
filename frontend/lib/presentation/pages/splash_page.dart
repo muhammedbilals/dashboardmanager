@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:dashboard/main.dart';
-import 'package:dashboard/presentation/pages/home_page.dart';
+import 'package:dashboard/presentation/pages/user_home_page.dart';
 import 'package:dashboard/presentation/pages/login_page.dart';
 import 'package:flutter/material.dart';
 

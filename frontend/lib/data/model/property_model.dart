@@ -1,50 +1,51 @@
 import 'package:dashboard/domain/entity/response/property_entity.dart';
 
-class ResidentialProperty extends Property {
-  String? neighborhood;
-  bool? hasGarage;
-  bool? hasGarden;
+class PropertyModel extends Property {
+  PropertyModel({
+    required int id,
+    required String propertyName,
+    required String propertyType,
+    required String location,
+    required int sizeSqFt,
+    required int price,
+    required int noOfBedrooms,
+    required int noOfBathrooms,
+  }) : super(
+          id: id,
+          propertyName: propertyName,
+          propertyType: propertyType,
+          location: location,
+          sizeSqFt: sizeSqFt,
+          price: price,
+          noOfBedrooms: noOfBedrooms,
+          noOfBathrooms: noOfBathrooms,
+        );
 
-  ResidentialProperty({
-    super.id,
-    super.propertyName,
-    super.propertyType,
-    super.location,
-    super.sizeSqFt,
-    super.price,
-    super.noOfBedrooms,
-    super.noOfBathrooms,
-    this.neighborhood,
-    this.hasGarage,
-    this.hasGarden,
-  });
-
-  // Override the factory constructor to include new fields
-  factory ResidentialProperty.fromJson(Map<String, dynamic> json) {
-    return ResidentialProperty(
-      id: json['id'] as int?,
-      propertyName: json['propertyName'] as String?,
-      propertyType: json['propertyType'] as String?,
-      location: json['location'] as String?,
-      sizeSqFt: json['sizeSqFt'] as int?,
-      price: json['price'] as int?,
-      noOfBedrooms: json['noOfBedrooms'] as int?,
-      noOfBathrooms: json['noOfBathrooms'] as int?,
-      neighborhood: json['neighborhood'] as String?,
-      hasGarage: json['hasGarage'] as bool?,
-      hasGarden: json['hasGarden'] as bool?,
+  // Factory method to create a PropertyModel from JSON
+  factory PropertyModel.fromJson(Map<String, dynamic> json) {
+    return PropertyModel(
+      id: json['id'],
+      propertyName: json['propertyName'],
+      propertyType: json['propertyType'],
+      location: json['location'],
+      sizeSqFt: json['sizeSqFt'],
+      price: json['price'],
+      noOfBedrooms: json['noOfBedrooms'],
+      noOfBathrooms: json['noOfBathrooms'],
     );
   }
 
-  // Override toJson to include new fields
-  @override
+  // Method to convert PropertyModel to JSON
   Map<String, dynamic> toJson() {
-    final data = super.toJson();
-    data.addAll({
-      'neighborhood': neighborhood,
-      'hasGarage': hasGarage,
-      'hasGarden': hasGarden,
-    });
-    return data;
+    return {
+      'id': id,
+      'propertyName': propertyName,
+      'propertyType': propertyType,
+      'location': location,
+      'sizeSqFt': sizeSqFt,
+      'price': price,
+      'noOfBedrooms': noOfBedrooms,
+      'noOfBathrooms': noOfBathrooms,
+    };
   }
 }

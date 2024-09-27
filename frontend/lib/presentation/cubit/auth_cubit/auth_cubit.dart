@@ -18,7 +18,11 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> login(LoginRequest loginRequest) async {
     emit(AuthLoading());
     final result = await authRepository.login(logInRequest: loginRequest);
+    if(result.isRight){
+      localDb.setString("jwtKey", result.right.tokens);
+      localDb.setString("userRole", result.right.userRole);
 
+    }
     result.fold(
       (failure) => emit(AuthFailure("Login Failed")),
       (login) => emit(AuthSuccess('Login successful!')),
@@ -30,6 +34,8 @@ class AuthCubit extends Cubit<AuthState> {
     final result = await authRepository.registration(signUpRequest: registrationRequest);
     if(result.isRight){
       localDb.setString("jwtKey", result.right.tokens!);
+      localDb.setString("userRole", result.right.userRole!);
+
     }
     result.fold(
       (failure) => emit(AuthFailure("Registration Failed")),
