@@ -1,7 +1,6 @@
 import 'package:dashboard/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'package:dashboard/presentation/cubit/button_cubit/button_cubit.dart';
-import 'package:dashboard/presentation/pages/home_page.dart';
-import 'package:dashboard/presentation/pages/registration_page.dart';
+import 'package:dashboard/presentation/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,7 +40,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: const RegistrationPage(),
+          home: const SplashPage(),
         );}
       ),
     );

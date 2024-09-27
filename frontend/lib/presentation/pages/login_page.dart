@@ -1,12 +1,12 @@
 // ignore: must_be_immutable
 import 'package:dashboard/core/colors/colors.dart';
 import 'package:dashboard/core/constant/constant.dart';
-import 'package:dashboard/domain/entity/request/registration_request.dart';
+import 'package:dashboard/domain/entity/request/login_request.dart';
 import 'package:dashboard/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'package:dashboard/presentation/cubit/auth_cubit/auth_state.dart';
 import 'package:dashboard/presentation/cubit/button_cubit/button_cubit.dart';
 import 'package:dashboard/presentation/cubit/button_cubit/button_state.dart';
-import 'package:dashboard/presentation/pages/login_page.dart';
+import 'package:dashboard/presentation/pages/registration_page.dart';
 import 'package:dashboard/shared/validation/textfield_validation.dart';
 import 'package:dashboard/shared/widgets/button_widget.dart';
 import 'package:dashboard/shared/widgets/colored_safearea.dart';
@@ -15,14 +15,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
-class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<RegistrationPage> createState() => RegistrationPageState();
+  State<LoginPage> createState() => LoginPageState();
 }
 
-class RegistrationPageState extends State<RegistrationPage> {
+class LoginPageState extends State<LoginPage> {
   late final GlobalKey<FormState> formKey;
 
   final firsttNameController = TextEditingController();
@@ -53,7 +53,7 @@ class RegistrationPageState extends State<RegistrationPage> {
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(70),
             child: AppBar(
-              title: const Text("Registration"),
+              title: const Text("Login"),
             )),
         body: SingleChildScrollView(
           child: Padding(
@@ -65,48 +65,6 @@ class RegistrationPageState extends State<RegistrationPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   sbox20,
-                  TextFieldWidget(
-                    textInputAction: TextInputAction.next,
-                    textInputType: TextInputType.name,
-                    labelText: 'First Name',
-                    textEditingController: firsttNameController,
-                    autofillHints: const [AutofillHints.name],
-                    onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                    validator: (value) {
-                      if (value != null && value.length < 2) {
-                        return 'name is required';
-                      } else {
-                        return null;
-                      }
-                    },
-                    onChanged: (string) {
-                      isValidated = formKey.currentState!.validate();
-                      BlocProvider.of<ButtonCubit>(context)
-                          .validateTextfield(isValidated);
-                    },
-                  ),
-                  sbox20,
-                  TextFieldWidget(
-                    textInputAction: TextInputAction.next,
-                    textInputType: TextInputType.name,
-                    labelText: 'Last Name',
-                    textEditingController: lastNamenameController,
-                    autofillHints: const [AutofillHints.name],
-                    onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                    validator: (value) {
-                      if (value != null && value.length < 2) {
-                        return 'name is required';
-                      } else {
-                        return null;
-                      }
-                    },
-                    onChanged: (string) {
-                      isValidated = formKey.currentState!.validate();
-                      BlocProvider.of<ButtonCubit>(context)
-                          .validateTextfield(isValidated);
-                    },
-                  ),
-                  sbox,
                   TextFieldWidget(
                       textInputAction: TextInputAction.next,
                       textInputType: TextInputType.emailAddress,
@@ -127,27 +85,6 @@ class RegistrationPageState extends State<RegistrationPage> {
                         }
                         return null;
                       }),
-                  sbox,
-                  TextFieldWidget(
-                    textInputAction: TextInputAction.next,
-                    textInputType: TextInputType.visiblePassword,
-                    labelText: 'Mobile Number',
-                    textEditingController: mobileNumberController,
-                    autofillHints: const [AutofillHints.telephoneNumber],
-                    onChanged: (string) {
-                      isValidated = formKey.currentState!.validate();
-                      BlocProvider.of<ButtonCubit>(context)
-                          .validateTextfield(isValidated);
-                    },
-                    onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                    validator: (value) {
-                      if (value != null && value.length < 10) {
-                        return 'Phone Number minimum 10 char';
-                      } else {
-                        return null;
-                      }
-                    },
-                  ),
                   sbox20,
                   TextFieldWidget(
                     textInputAction: TextInputAction.next,
@@ -187,28 +124,6 @@ class RegistrationPageState extends State<RegistrationPage> {
                     },
                   ),
                   sbox20,
-                  TextFieldWidget(
-                    textInputAction: TextInputAction.done,
-                    obscureText: true,
-                    textInputType: TextInputType.visiblePassword,
-                    labelText: 'Confirm Password',
-                    textEditingController: reEnterPasswordController,
-                    autofillHints: const [AutofillHints.password],
-                    onChanged: (string) {
-                      isValidated = formKey.currentState!.validate();
-                      BlocProvider.of<ButtonCubit>(context)
-                          .validateTextfield(isValidated);
-                    },
-                    onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                    validator: (value) {
-                      if (value != null && value != passwordController.text) {
-                        return 'password doesnt match';
-                      } else {
-                        return null;
-                      }
-                    },
-                  ),
-                  sbox20,
                   BlocBuilder<AuthCubit, AuthState>(
                     builder: (context, state) {
                       ButtonStatus buttonStatus;
@@ -222,15 +137,13 @@ class RegistrationPageState extends State<RegistrationPage> {
                       }
                       return ButtonWidget(
                         width: 100.w,
-                        text: 'Register',
+                        text: 'Login',
                         onPressed: () {
-                          final registrationRequest = RegistraionRequest(
-                              email: emailController.text,
-                              password: passwordController.text,
-                              mobileNumber: mobileNumberController.text);
-                          context
-                              .read<AuthCubit>()
-                              .register(registrationRequest);
+                          final loginRequest = LoginRequest(
+                            email: emailController.text,
+                            password: passwordController.text,
+                          );
+                          context.read<AuthCubit>().login(loginRequest);
                         },
                         buttonStatus: buttonStatus,
                       );
@@ -240,15 +153,16 @@ class RegistrationPageState extends State<RegistrationPage> {
                   InkWell(
                     onTap: () {
                       Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginPage(),
-                          ));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RegistrationPage(),
+                        ),
+                      );
                     },
                     child: const Center(
                       child: Text(
-                        'Switch to Login',
-                        style:  TextStyle(decoration: TextDecoration.underline),
+                        'Switch to Registration',
+                        style: TextStyle(decoration: TextDecoration.underline),
                       ),
                     ),
                   )
