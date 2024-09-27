@@ -33,7 +33,6 @@ class AuthRepositoryImpl implements AuthRepository {
           return const Left(ServerFailure(errorMessage: 'Login Failed'));
         }
       }
-   
   }
 
   @override
@@ -43,7 +42,7 @@ class AuthRepositoryImpl implements AuthRepository {
       try {
         final authEnity =
             await remoteDataSource.signUpWithApi(signUpRequest: signUpRequest);
-        
+        log(authEnity.email.toString());
         return Right(authEnity);
       } catch (e) {
         log(e.toString());
@@ -51,7 +50,7 @@ class AuthRepositoryImpl implements AuthRepository {
           return Left(e);
         } else {
           return const Left(
-              ServerFailure(errorMessage: 'SignUp Failed'));
+              ServerFailure(errorMessage: 'SignUp Failed '));
         }
       }
     
