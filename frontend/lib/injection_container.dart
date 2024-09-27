@@ -10,6 +10,7 @@ import 'package:dashboard/domain/usecase/registration_usecase.dart';
 import 'package:dashboard/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'package:dashboard/presentation/cubit/create_property_cubit/create_property_cubit.dart';
 import 'package:dashboard/presentation/cubit/property_cubit/property_cubit.dart';
+import 'package:dashboard/presentation/cubit/update_property_cubit/update_property_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -43,6 +44,9 @@ Future<void> init() async {
   );
   sl.registerFactory(
     () => CreatePropertyCubit(propertyRepository: sl()),
+  );
+    sl.registerFactory(
+    () => UpdatePropertyCubit(propertyRepository: sl()),
   );
   sl.registerLazySingleton(
       () => GetPropertiesUseCase(propertyRepository: sl()));

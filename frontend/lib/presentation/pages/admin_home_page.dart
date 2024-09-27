@@ -1,13 +1,11 @@
 import 'package:dashboard/main.dart';
-import 'package:dashboard/presentation/cubit/create_property_cubit/create_property_cubit.dart';
 import 'package:dashboard/presentation/cubit/property_cubit/property_cubit.dart';
 import 'package:dashboard/presentation/cubit/property_cubit/property_state.dart';
+import 'package:dashboard/presentation/pages/create_new_property.dart';
 import 'package:dashboard/presentation/pages/login_page.dart';
-import 'package:dashboard/presentation/widgets/add_property_bottomsheet.dart';
+import 'package:dashboard/presentation/pages/update_property_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer/sizer.dart';
-
 
 class AdminHomePage extends StatefulWidget {
   const AdminHomePage({super.key});
@@ -29,6 +27,19 @@ class AdminHomePageState extends State<AdminHomePage> {
       appBar: AppBar(
         title: const Text('Property Manager'),
         actions: [
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddPropertyPage(),
+                  ));
+            },
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 0.0), // Adding padding
+              child: Icon(Icons.add_box_outlined),
+            ),
+          ),
           GestureDetector(
             onTap: () {
               localDb.remove('jwtKey');
@@ -117,7 +128,13 @@ class AdminHomePageState extends State<AdminHomePage> {
                                 IconButton(
                                   icon: const Icon(Icons.edit),
                                   onPressed: () {
-                                    // Handle edit action
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              UpdatePropertyPage(
+                                                  property: property),
+                                        ));
                                   },
                                   tooltip: 'Edit',
                                 ),
@@ -169,26 +186,6 @@ class AdminHomePageState extends State<AdminHomePage> {
             // Handle any other state, e.g., initial state where there are no properties loaded yet
             return const Center(child: Text('No properties found'));
           }
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add_box_rounded),
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            builder: (BuildContext context) {
-              return SingleChildScrollView(
-                child: Container(
-                  height: 80.h,
-                  padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom,
-                  ),
-                  child: AddPropertyBottomSheet(),
-                ),
-              );
-            },
-          );
         },
       ),
     );

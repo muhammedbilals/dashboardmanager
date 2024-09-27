@@ -75,4 +75,24 @@ class PropertyCubit extends Cubit<PropertyState> {
       emit(PropertyFailure('Unexpected error occurred while deleting property.'));
     }
   }
+  // Update Property Method
+  void updateProperty(int id ,PropertyRequest property) async {
+    emit(PropertyLoading()); // Emit loading state
+    try {
+      final result = await propertyRepository.updateProperty(id: id, property: property);
+
+      result.fold(
+        (failure) => emit(PropertyFailure("Update Failed")),
+        (success) {
+          if (success == true) {
+            fetchProperties(); // Refetch properties after successful update
+          } else {
+            emit(PropertyFailure('Failed to update property.'));
+          }
+        },
+      );
+    } catch (e) {
+      emit(PropertyFailure('Unexpected error occurred while updating property.'));
+    }
+  }
 }
