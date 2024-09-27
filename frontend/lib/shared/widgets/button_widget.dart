@@ -75,21 +75,7 @@ class ButtonWidget extends StatelessWidget {
                 onPressed!();
                 log('methode executed');
               }
-              if (isPushreplacement != true && navigation != null) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => navigation!,
-                  ),
-                );
-              } else if (isPushreplacement == true && navigation != null) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => navigation!,
-                  ),
-                );
-              }
+            
             },
             child: _buttonState()),
       ),
@@ -100,13 +86,13 @@ class ButtonWidget extends StatelessWidget {
     switch (buttonStatus) {
       case ButtonStatus.loading:
         return CircularProgressIndicator(
-          color: colorred.withOpacity(0.5),
+          color: colorwhite.withOpacity(0.5),
           strokeWidth: 4,
         );
       case ButtonStatus.error:
         return const Icon(
           Icons.error_outline_outlined,
-          color: colorred,
+          color: colorwhite,
         );
       case ButtonStatus.idle:
       default:

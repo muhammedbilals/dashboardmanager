@@ -239,7 +239,7 @@ class RegistrationPageState extends State<RegistrationPage> {
                         context.read<AuthCubit>().register(registrationRequest);
                       },
                       buttonStatus: buttonStatus,
-                      // Add any other parameters you need
+                      
                     );
                   },)
                 ],
