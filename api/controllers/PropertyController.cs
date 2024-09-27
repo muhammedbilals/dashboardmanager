@@ -58,7 +58,7 @@ namespace api.controllers
 
         // Endpoint to create a new property
         [HttpPost]
-        // [Authorize(Roles = "Admin")] // Uncomment for role-based authorization
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreatePropertiesAsync([FromBody()] PropertyDto propertyDto)
         {
             // Validate the model state
@@ -84,7 +84,7 @@ namespace api.controllers
 
         // Endpoint to update an existing property by ID
         [HttpPut("{id}")]
-        // [Authorize(Roles = "Admin")] // Uncomment for role-based authorization
+        // [Authorize(Roles = "Admin")] 
         public async Task<IActionResult> UpdatePropertiesAsync([FromRoute] int id, [FromBody()] PropertyDto propertyDto)
         {
             // Validate the model state
@@ -105,7 +105,7 @@ namespace api.controllers
 
         // Endpoint to delete an existing property by ID
         [HttpDelete("{id}")]
-        // [Authorize(Roles = "ADMIN")] // Uncomment for role-based authorization
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeletePropertiesAsync([FromRoute] int id)
         {
             // Validate the model state

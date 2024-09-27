@@ -30,31 +30,6 @@ class PropertyCubit extends Cubit<PropertyState> {
   }
 
 
-
-  // // Create Property Method
-  // void createProperty(PropertyRequest property) async {
-  //   emit(PropertyCreateLoading()); // Emit loading state
-  //   try {
-  //     final result =
-  //         await propertyRepository.createProperty(property: property);
-
-  //     result.fold(
-  //       (failure) => emit(PropertyCreateFailure("Create Failed")),
-  //       (success) {
-  //         if (success == true) {
-  //           fetchProperties(); // Refetch properties after successful creation
-  //           emit(PropertyCreateSuccess());
-  //         } else {
-  //           emit(PropertyCreateFailure('Failed to create property.'));
-  //         }
-  //       },
-  //     );
-  //   } catch (e) {
-  //     emit(PropertyFailure(
-  //         'Unexpected error occurred while creating property.'));
-  //   }
-  // }
-
 // Delete Property Method
   void deleteProperty(int id) async {
     emit(PropertyLoading()); // Emit loading state
@@ -62,17 +37,17 @@ class PropertyCubit extends Cubit<PropertyState> {
       final result = await propertyRepository.deleteProperty(id: id);
 
       result.fold(
-        (failure) => emit(PropertyFailure("Delete Failed")),
+        (failure) => emit(PropertyDeleteFailure("Delete Failed")),
         (success) {
           if (success == true) {
             fetchProperties(); // Refetch properties after successful deletion
           } else {
-            emit(PropertyFailure('Failed to delete property.'));
+            emit(PropertyDeleteFailure('Failed to delete property.'));
           }
         },
       );
     } catch (e) {
-      emit(PropertyFailure('Unexpected error occurred while deleting property.'));
+      emit(PropertyDeleteFailure('Unexpected error occurred while deleting property.'));
     }
   }
   // Update Property Method

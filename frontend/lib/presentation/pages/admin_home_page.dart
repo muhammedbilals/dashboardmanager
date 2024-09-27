@@ -4,6 +4,7 @@ import 'package:dashboard/presentation/cubit/property_cubit/property_state.dart'
 import 'package:dashboard/presentation/pages/create_new_property.dart';
 import 'package:dashboard/presentation/pages/login_page.dart';
 import 'package:dashboard/presentation/pages/update_property_page.dart';
+import 'package:dashboard/utils/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -61,6 +62,10 @@ class AdminHomePageState extends State<AdminHomePage> {
       ),
       body: BlocBuilder<PropertyCubit, PropertyState>(
         builder: (context, state) {
+          if (state is PropertyDeleteFailure) {
+            context.read<PropertyCubit>().fetchProperties();
+            Utils.showSnackbar('Unable to delete Property');
+          }
           if (state is PropertyLoading) {
             // Show a loading spinner while properties are being fetched
             return const Center(child: CircularProgressIndicator());

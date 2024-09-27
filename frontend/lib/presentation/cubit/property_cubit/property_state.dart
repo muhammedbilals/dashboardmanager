@@ -54,3 +54,24 @@ class PropertyCreateFailure extends PropertyState {
   @override
   List<Object?> get props => [errorMessage];
 }
+class PropertyDeleteLoading extends PropertyState {}
+
+
+class PropertyDeleteSuccess extends PropertyState {
+
+
+  PropertyDeleteSuccess();
+
+  @override
+  List<Object?> get props => [];
+}
+
+
+class PropertyDeleteFailure extends PropertyState {
+  final String errorMessage;
+
+  PropertyDeleteFailure(this.errorMessage);
+
+  @override
+  List<Object?> get props => [errorMessage];
+}
