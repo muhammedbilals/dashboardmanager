@@ -15,19 +15,20 @@ namespace api.controllers
     [Route("api/user")]
     [ApiController]
 
-    public class UserController: ControllerBase {
-        
-    private readonly IUserRepository _userRepo;
-    // private readonly ICollegeRepository _collegeRepo;
+    public class UserController : ControllerBase
+    {
 
-       public UserController(IUserRepository userRepo)
-       {
-            _userRepo =userRepo;
-            // _collegeRepo = collegeRepo;
-       }
+        private readonly IUserRepository _userRepo;
 
-       [HttpGet("getusers")]
-        public async Task<IActionResult> GetUsers(){
+
+        public UserController(IUserRepository userRepo)
+        {
+            _userRepo = userRepo;
+        }
+
+        [HttpGet("getusers")]
+        public async Task<IActionResult> GetUsers()
+        {
 
             var User = await _userRepo.GetUsers();
             var UserDto = User.Select(s => s.ToUserDto());
