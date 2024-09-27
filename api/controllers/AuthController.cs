@@ -18,7 +18,7 @@ namespace api.controllers
         private readonly UserManager<User> _userManager;
         private readonly ITokenServices _tokenService;
         private readonly SignInManager<User> _signinManager;
-        public AuthController(UserManager<User> userManager,ITokenServices tokenServices,SignInManager<User> signInManager)
+        public AuthController(UserManager<User> userManager, ITokenServices tokenServices, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _tokenService = tokenServices;
@@ -26,56 +26,73 @@ namespace api.controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register ([FromBody]RegisterDto registerDto ){
-            try {
-                if(!ModelState.IsValid) return BadRequest(ModelState);
+        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+        {
+            try
+            {
+                if (!ModelState.IsValid) return BadRequest(ModelState);
 
-                var user = new User{
+                var user = new User
+                {
                     Email = registerDto.Email,
                     UserName = registerDto.Email,
                     PhoneNumber = registerDto.MobileNumber
                 };
 
-                var registerdUser =await _userManager.CreateAsync(user , registerDto.Password!);
-                if(registerdUser.Succeeded){
+                var registerdUser = await _userManager.CreateAsync(user, registerDto.Password!);
+                if (registerdUser.Succeeded)
+                {
                     var roleResult = await _userManager.AddToRoleAsync(user, "USER");
-                    if(roleResult.Succeeded){
-                        return Ok(new NewUserDto{
-                           Tokens =_tokenService.CreateToken(user),
+                    if (roleResult.Succeeded)
+                    {
+                        return Ok(new NewUserDto
+                        {
+                            Tokens = _tokenService.CreateToken(user),
                             Email = registerDto.Email,
-                            
+                            UserRole = "User"
                         });
-                    }else{
-                        return StatusCode(500,roleResult.Errors);
                     }
-                }else {
-                    return StatusCode(500,registerdUser.Errors);
+                    else
+                    {
+                        return StatusCode(500, roleResult.Errors);
+                    }
+                }
+                else
+                {
+                    return StatusCode(500, registerdUser.Errors);
                 }
             }
             catch (Exception e)
             {
-                
-               return StatusCode(500 ,e);
+
+                return StatusCode(500, e);
             }
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto){
+        public async Task<IActionResult> Login([FromBody] LoginUserDto loginUserDto)
+        {
 
-            if(!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginUserDto.Email);
 
-            if(user== null) return Unauthorized("Invalid username");
+            if (user == null) return Unauthorized("Invalid username");
 
-            var result = await _signinManager.CheckPasswordSignInAsync(user, loginUserDto.Password ,false);
+            var result = await _signinManager.CheckPasswordSignInAsync(user, loginUserDto.Password, false);
 
-            if(!result.Succeeded) return Unauthorized("Username not found/password incorrect");
+            if (!result.Succeeded) return Unauthorized("Username not found/password incorrect");
+
+            // Retrieve the user's role
+            var roles = await _userManager.GetRolesAsync(user);
+            var userRole = roles.FirstOrDefault();
 
             return Ok(
-                new NewUserDto{
+                new NewUserDto
+                {
                     Email = user.Email,
-                    Tokens = _tokenService.CreateToken(user)
+                    Tokens = _tokenService.CreateToken(user),
+                    UserRole = userRole 
                 }
             );
         }

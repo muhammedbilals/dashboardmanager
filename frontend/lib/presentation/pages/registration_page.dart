@@ -6,6 +6,7 @@ import 'package:dashboard/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'package:dashboard/presentation/cubit/auth_cubit/auth_state.dart';
 import 'package:dashboard/presentation/cubit/button_cubit/button_cubit.dart';
 import 'package:dashboard/presentation/cubit/button_cubit/button_state.dart';
+import 'package:dashboard/presentation/pages/home_page.dart';
 import 'package:dashboard/presentation/pages/login_page.dart';
 import 'package:dashboard/shared/validation/textfield_validation.dart';
 import 'package:dashboard/shared/widgets/button_widget.dart';
@@ -220,6 +221,15 @@ class RegistrationPageState extends State<RegistrationPage> {
                       } else {
                         buttonStatus = ButtonStatus.idle;
                       }
+                      if (state is AuthSuccess) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HomePage(),
+                            ));});
+                      }
                       return ButtonWidget(
                         width: 100.w,
                         text: 'Register',
@@ -248,7 +258,7 @@ class RegistrationPageState extends State<RegistrationPage> {
                     child: const Center(
                       child: Text(
                         'Switch to Login',
-                        style:  TextStyle(decoration: TextDecoration.underline),
+                        style: TextStyle(decoration: TextDecoration.underline),
                       ),
                     ),
                   )

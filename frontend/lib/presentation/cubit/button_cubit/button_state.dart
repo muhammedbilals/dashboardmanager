@@ -25,8 +25,7 @@ class ButtonState extends Equatable {
 ///Throw button state with [ButtonValidated] when api changes
 class ButtonValidated extends ButtonState {
   const ButtonValidated(
-      {required bool isValidated, ButtonStatus buttonStatus = ButtonStatus.idle})
-      : super(isValidated: isValidated, buttonStatus: buttonStatus);
+      {required super.isValidated, super.buttonStatus});
 
   @override
   List<Object?> get props => [isValidated, buttonStatus];

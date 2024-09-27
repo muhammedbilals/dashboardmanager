@@ -11,5 +11,6 @@ namespace api.dtos.user
 
         public string? Password{get; set;}
         public string? Tokens {get; set;}
+        public string UserRole { get; set; }
     }
 }

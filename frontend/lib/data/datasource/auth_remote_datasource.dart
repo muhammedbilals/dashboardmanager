@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:dashboard/core/constant/api_constant.dart';
 import 'package:dashboard/core/error/failures.dart';
+import 'package:dashboard/data/model/user_login_model.dart';
 import 'package:dashboard/data/model/user_registraion_model.dart';
 import 'package:dashboard/domain/entity/request/login_request.dart';
 import 'package:dashboard/domain/entity/request/registration_request.dart';
@@ -33,7 +34,7 @@ class AuthApiRemoteDataSourceImpl implements AuthApiRemoteDataSource {
     final decodedBody = json.decode(response.body);
     if (response.statusCode == 200) {
       log(decodedBody.toString());
-      return Login.fromJson(decodedBody);
+      return LoginModel.fromJson(decodedBody);
     } else {
       log(decodedBody['message']);
 

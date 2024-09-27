@@ -8,18 +8,21 @@ class UserRegistrationModel extends UserRegistration {
     String? email,
     String? password,
     String? tokens,
+    String? userRole
   }) : super(
           email: email ,
-          password: password ?? 'defaultPassword',
+          password: password ?? "",
           tokens: tokens ,
+          userRole: userRole
         );
 
   // Factory constructor to create a UserRegistrationModel instance from JSON
   factory UserRegistrationModel.fromJson(Map<String, dynamic> json) {
     return UserRegistrationModel(
       email: json['email'] as String?,
-      password: json['password'] as String? ?? 'defaultPassword',
+      password: json['password'] as String? ?? "",
       tokens: json['tokens'] as String? ,
+      userRole: json['userRole'] as String?
     );
   }
 

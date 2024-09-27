@@ -23,7 +23,7 @@ class _SplashPageState extends State<SplashPage> {
     await Future.delayed(const Duration(seconds: 2));
 
     // Check if JWT token is stored in SharedPreferences
-    String? jwtToken = localDb.getString('jwt');
+    String? jwtToken = localDb.getString('jwtKey');
 
     // Navigate to appropriate screen based on the availability of JWT token
     if (jwtToken != null && jwtToken.isNotEmpty) {
@@ -52,7 +52,7 @@ class _SplashPageState extends State<SplashPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Splash screen content (e.g., a logo)
+          
             Icon(
               Icons.flash_on,
               size: 100,

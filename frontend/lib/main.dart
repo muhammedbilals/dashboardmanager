@@ -1,5 +1,6 @@
 import 'package:dashboard/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'package:dashboard/presentation/cubit/button_cubit/button_cubit.dart';
+import 'package:dashboard/presentation/cubit/property_cubit/property_cubit.dart';
 import 'package:dashboard/presentation/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -29,6 +30,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => ButtonCubit()),
         BlocProvider(create: (_) => di.sl<AuthCubit>()),
+        BlocProvider(create: (_) => di.sl<PropertyCubit>()),
+
 
       ],
       child: Sizer(
