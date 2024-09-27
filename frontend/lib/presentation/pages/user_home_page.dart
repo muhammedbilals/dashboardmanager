@@ -1,5 +1,7 @@
+import 'package:dashboard/main.dart';
 import 'package:dashboard/presentation/cubit/property_cubit/property_cubit.dart';
 import 'package:dashboard/presentation/cubit/property_cubit/property_state.dart';
+import 'package:dashboard/presentation/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,10 +24,23 @@ class _UserHomePageState extends State<UserHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Property Manager'),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0), // Adding padding
-            child: Icon(Icons.exit_to_app),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              localDb.remove('jwtKey');
+              localDb.remove('userRole');
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LoginPage(),
+                ),
+                (Route<dynamic> route) => false,
+              );
+            },
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0), // Adding padding
+              child: Icon(Icons.exit_to_app),
+            ),
           ),
         ],
       ),
@@ -78,10 +93,6 @@ class _UserHomePageState extends State<UserHomePage> {
             return const Center(child: Text('No properties found'));
           }
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.read<PropertyCubit>().fetchProperties(),
-        child: const Icon(Icons.refresh),
       ),
     );
   }

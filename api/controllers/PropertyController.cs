@@ -69,7 +69,7 @@ namespace api.controllers
             }
         }
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdatePropertiesAsync([FromRoute] int id, [FromBody()] PropertyDto propertyDto)
         {
 
@@ -86,7 +86,7 @@ namespace api.controllers
             return Ok(property);
         }
         [HttpDelete("{id}")]
-        [Authorize(Roles = "ADMIN")]
+        // [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> DeletePropertiesAsync([FromRoute] int id)
         {
 

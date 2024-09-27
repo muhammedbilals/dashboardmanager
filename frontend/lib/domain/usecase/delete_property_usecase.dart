@@ -8,7 +8,7 @@ class DeletePropertyUseCase {
 
   DeletePropertyUseCase({required this.propertyRepository});
 
-  Future<Either<Failure, Property?>> execute({required int id}) async {
+  Future<Either<Failure, bool>> execute({required int id}) async {
     return await propertyRepository.deleteProperty(id: id);
   }
 }

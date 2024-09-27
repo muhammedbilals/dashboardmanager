@@ -12,7 +12,7 @@ abstract class PropertyApiRemoteDataSource {
   Future<List<Property>> getProperties();
   Future<Property> createProperty({required PropertyRequest propertyRequest});
   Future<Property?> updateProperty({required int id, required PropertyRequest propertyRequest});
-  Future<Property?> deleteProperty({required int id});
+  Future<bool> deleteProperty({required int id});
 }
 
 class PropertyApiRemoteDataSourceImpl implements PropertyApiRemoteDataSource {
@@ -85,13 +85,13 @@ class PropertyApiRemoteDataSourceImpl implements PropertyApiRemoteDataSource {
   }
 
   @override
-  Future<Property?> deleteProperty({required int id}) async {
+  Future<bool> deleteProperty({required int id}) async {
     final url = Uri.parse('$baseUrl/property/$id');
     final response = await httpClient.delete(url);
     final decodedBody = json.decode(response.body);
 
-    if (response.statusCode == 200) {
-      return PropertyModel.fromJson(decodedBody); 
+    if (response.statusCode == 200 || response.statusCode == 204) {
+      return true;
     } else {
       log(decodedBody['message']);
       throw ServerFailure(errorMessage: decodedBody['message']);

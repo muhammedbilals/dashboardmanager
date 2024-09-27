@@ -10,5 +10,5 @@ abstract class PropertyRepository {
   Future<Either<Failure, List<Property>>> getProperties();
   Future<Either<Failure, Property>> createProperty({required PropertyRequest property});
   Future<Either<Failure, Property?>> updateProperty({required int id, required PropertyRequest property});
-  Future<Either<Failure, Property?>> deleteProperty({required int id});
+  Future<Either<Failure, bool>> deleteProperty({required int id});
 }

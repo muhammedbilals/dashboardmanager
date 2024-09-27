@@ -13,14 +13,39 @@ class PropertyCubit extends Cubit<PropertyState> {
   void fetchProperties() async {
     emit(PropertyLoading()); // Emit loading state
     try {
-      Either<Failure, List<Property>> fetchedProperties = await propertyRepository.getProperties();
+      Either<Failure, List<Property>> fetchedProperties =
+          await propertyRepository.getProperties();
 
       fetchedProperties.fold(
-        (failure) => emit(PropertyFailure("")), // On failure, emit failure state
-        (properties) => emit(PropertySuccess(properties))    // On success, emit success state
-      );
+          (failure) =>
+              emit(PropertyFailure("")), // On failure, emit failure state
+          (properties) => emit(
+              PropertySuccess(properties)) // On success, emit success state
+          );
     } catch (e) {
-      emit(PropertyFailure('Unexpected error occurred.')); // Emit failure on exception
+      emit(PropertyFailure(
+          'Unexpected error occurred.')); // Emit failure on exception
+    }
+  }
+
+  void deleteProperty(int id) async {
+    emit(PropertyLoading());
+    try {
+      final result = await propertyRepository.deleteProperty(id: id);
+
+      result.fold((failure) {
+        emit(PropertyFailure("Delete Fialed"));
+      }, (success) {
+        if (success == true) {
+          // If deletion was successful, fetch updated list of properties
+          fetchProperties();
+        } else {
+          emit(PropertyFailure('Failed to delete property.'));
+        }
+      });
+    } catch (e) {
+      emit(PropertyFailure(
+          'Unexpected error occurred while deleting property.'));
     }
   }
 }

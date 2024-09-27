@@ -85,7 +85,7 @@ class PropertyRepositoryImpl implements PropertyRepository {
   }
 
   @override
-  Future<Either<Failure, Property?>> deleteProperty({required int id}) async {
+  Future<Either<Failure, bool>> deleteProperty({required int id}) async {
 
       try {
         final property = await remoteDataSource.deleteProperty(id: id);
